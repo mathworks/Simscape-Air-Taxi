@@ -18,7 +18,7 @@
 % to determine which combinations will meet flight range requirements.  A
 % separate model enables a comparison with a hybrid-electric architecture.
 % 
-% Copyright 2017 The MathWorks, Inc.
+% Copyright 2017-2018 The MathWorks, Inc.
 
 %% Model
 %
@@ -155,8 +155,6 @@ close(h4_ssc_aircraft_elec)
 close(h4_ssc_aircraft_elec_hybrid)
 
 ssc_aircraft_sweep_payloadbattery_compare
-close(h4_ssc_aircraft_elec)
-close(h4_ssc_aircraft_elec_hybrid)
 close(h8_ssc_aircraft_elec)
 close(h8_ssc_aircraft_elec_hybrid)
 %%

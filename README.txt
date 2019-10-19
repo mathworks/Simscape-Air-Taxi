@@ -1,5 +1,5 @@
 Electric Aircraft Configuration Evaluation
-Copyright 2017 The MathWorks, Inc.
+Copyright 2017-2018 The MathWorks, Inc.
 
 These example models enable you to use simulation to evaluate electric 
 and hybrid electric architectures against design criteria such

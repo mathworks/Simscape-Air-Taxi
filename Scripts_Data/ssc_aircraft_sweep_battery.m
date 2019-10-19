@@ -1,7 +1,7 @@
 % Code to sweep battery capacity for a single electric aircraft example and
 % plot results.
 %
-% Copyright 2017 The MathWorks, Inc.
+% Copyright 2017-2018 The MathWorks, Inc.
 
 battery_capacity_set = [100:20:200];
 
@@ -24,7 +24,7 @@ end
 
 clear simOut
 % Run simulation using Fast Restart
-simOut = sim(simInput,'ShowProgress','off');
+simOut = sim(simInput,'ShowProgress','off','UseFastRestart','on');
 
 % Get simulation results
 temp_distance = zeros(length(simOut),1);

@@ -8,51 +8,25 @@ min_range = 160;  % km
 
 % Test set for battery capacity
 battery_capacity_set = [100:20:200];
-payload_set = [0:10:120];
 
 % Code can be used on different models
 if (~exist('modelname','var'))
     modelname = 'ssc_aircraft_elec';
 end
 
-open_system(modelname)
-
-% Set flight profile based on workspace
-set_param([modelname '/Flight Cycle'], 'popup_flight_cycle_type', FlightProfileChoice.type-1);
-set_param(modelname, 'StopTime', 'FlightProfileLength');
-
-% Configure payload mass to be a run-time parameter
-% Ensure value is set from MATLAB Workspace, not Simulink Mask
-temp_payload_spec_method = get_param([modelname '/Aircraft'],'checkbox_payload_mass');
-set_param([modelname '/Aircraft'],'checkbox_payload_mass','off');
-
-
-% Store simulation inputs
-clear simInput
-temp_run_num = 0;
-
-for temp_bc_i = 1:length(battery_capacity_set)
-    for temp_pay_i = 1:length(payload_set)
-    temp_run_num = temp_run_num+1;
-    simInput(temp_run_num) = Simulink.SimulationInput(modelname);
-    simInput(temp_run_num) = simInput(temp_run_num).setVariable('battery_capacity',battery_capacity_set(temp_bc_i));
-    simInput(temp_run_num) = simInput(temp_run_num).setVariable('payload_mass_workspace',payload_set(temp_pay_i));
+% Loop over battery capacity
+for bc_i=1:length(battery_capacity_set)
+    battery_capacity = battery_capacity_set(bc_i);
+    
+    % Loop over payload
+    ssc_aircraft_sweep_payload
+    
+    % Save simulation results
+    for temp_py_i=1:length(simOut)
+        temp_dist_payl_ele(temp_py_i,bc_i) = simOut(temp_py_i).Distance(end);
+        temp_dura_payl_ele(temp_py_i,bc_i) = simOut(temp_py_i).tout(end);
     end
 end
-
-% Run simulation using Fast Restart
-simOut = [];
-simOut = sim(simInput,'ShowProgress','off','UseFastRestart','on');
-
-temp_run_num = 0;
-for temp_bc_i = 1:length(battery_capacity_set)
-    for temp_pay_i = 1:length(payload_set)
-        temp_run_num = temp_run_num+1;
-        temp_dist_payl_ele(temp_pay_i,temp_bc_i) = simOut(temp_run_num).Distance(end);
-        temp_dura_payl_ele(temp_pay_i,temp_bc_i) = simOut(temp_run_num).tout(end);
-    end
-end
-
 
 
 %% Plot simulation results
@@ -103,4 +77,4 @@ clb_h.Label.String = 'Flight Range (km)';
 colormap(flipud(cool))
 
 clear temp_s1_h temp_s2_h clb_h temp_annotation_str
-clear simlog_handles
+clear simlog_handles 

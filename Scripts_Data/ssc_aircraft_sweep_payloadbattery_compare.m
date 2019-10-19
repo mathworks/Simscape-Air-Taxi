@@ -1,6 +1,6 @@
 % Code to sweep battery capacity and payload for electric aircraft examples
 %
-% Copyright 2017 The MathWorks, Inc.
+% Copyright 2017-2018 The MathWorks, Inc.
 
 %% Run sweeps for pure electric network
 modelname = 'ssc_aircraft_elec';

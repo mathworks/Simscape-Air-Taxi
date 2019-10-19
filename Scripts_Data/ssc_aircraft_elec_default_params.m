@@ -1,6 +1,6 @@
 % Default parameters for electric aircraft examples
 %
-% Copyright 2017 The MathWorks, Inc.
+% Copyright 2017-2018 The MathWorks, Inc.
 
 % Default parameters
 battery_capacity        = 100;
