@@ -1,7 +1,7 @@
 % Code to sweep payload mass and battery for electric aircraft VTOL examples
 % and plot results.
 %
-% Copyright 2017-2019 The MathWorks, Inc.
+% Copyright 2017-2020 The MathWorks, Inc.
 
 % Code can be used on different models
 if (~exist('modelname','var'))

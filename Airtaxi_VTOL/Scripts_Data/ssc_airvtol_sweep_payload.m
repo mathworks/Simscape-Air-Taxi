@@ -1,7 +1,7 @@
 % Code to sweep payload mass for a single electric aircraft example and
 % plot results.
 %
-% Copyright 2017-2019 The MathWorks, Inc.
+% Copyright 2017-2020 The MathWorks, Inc.
 
 payload_set = [0:10:120];
 

@@ -2,7 +2,7 @@ function [mass, wing_area, cd, cl] = ssc_aircraft_elec_props(aircraft_type)
 % Returns mass, equivalent wing area, coefficient of drag, coefficient of
 % lift properties for a requested aircraft type.
 
-% Copyright 2017-2019 The MathWorks, Inc.
+% Copyright 2017-2020 The MathWorks, Inc.
 
 % Data for single seat aircraft similar to Airbus E-Fan
 aircraft.singleseatairbusefan.mass          = 360;   % kg without battery

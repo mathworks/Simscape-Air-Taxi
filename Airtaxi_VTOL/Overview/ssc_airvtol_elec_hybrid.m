@@ -19,7 +19,7 @@
 % determine which combinations will meet flight range requirements.  A
 % separate model enables a comparison with a pure electric architecture.
 % 
-% Copyright 2017-2019 The MathWorks, Inc.
+% Copyright 2017-2020 The MathWorks, Inc.
 
 %% Model
 %
