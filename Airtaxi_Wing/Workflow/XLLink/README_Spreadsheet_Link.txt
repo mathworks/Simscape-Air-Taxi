@@ -12,8 +12,9 @@ before the example will work.
 1. Install and configure Spreadsheet Link Add-on
    Your Excel installation must have the Spreadsheet Link add-on 
    installed and configured.  After installing Spreadsheet Link,
-   follow the instructions on this doc page:
+   follow the instructions on these doc pages:
    >> web(fullfile(docroot, 'exlink/add-in-setup-1.html'))
+   >> web(fullfile(docroot, 'exlink/setting-spreadsheet-link-preferences.html'))
 
 2. Adjust VBA Macro
    You will need to adjust line 2 in the VBA Macro 

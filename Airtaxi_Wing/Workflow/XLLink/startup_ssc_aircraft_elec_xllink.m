@@ -1,11 +1,11 @@
 % Copyright 2011-2020 The MathWorks, Inc.
 
-Elec_Aircraft_Model_HomeDir = [pwd filesep '..'];
+Elec_Aircraft_Model_HomeDir = [pwd filesep '..' filesep '..'];
 addpath(Elec_Aircraft_Model_HomeDir);
 addpath([Elec_Aircraft_Model_HomeDir filesep 'Scripts_Data']);
 addpath([Elec_Aircraft_Model_HomeDir filesep 'Libraries']);
 addpath([Elec_Aircraft_Model_HomeDir filesep 'Images']);
-addpath([Elec_Aircraft_Model_HomeDir filesep 'XLLink']);
+addpath([Elec_Aircraft_Model_HomeDir filesep 'Workflow' filesep 'XLLink']);
 addpath([Elec_Aircraft_Model_HomeDir filesep 'html' filesep 'html']);
 
 % Load Parameters 

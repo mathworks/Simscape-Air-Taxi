@@ -7,5 +7,5 @@ as flight range and flight duration.  The models are parameterized so
 that you can modify many aspects of the design, including automatic
 parameter sweeps of battery size and payload.
 
-Run >> startup_ssc_aircraft_elec to get started.
+Open Airtaxi_Wing.prj to get started.
 
