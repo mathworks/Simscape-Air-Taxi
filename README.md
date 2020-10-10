@@ -1,6 +1,8 @@
 # **Electric Aircraft Model in Simscape**
 Copyright 2017-2020 The MathWorks, Inc.
 
+[![View Electric Aircraft Model in Simscape on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/64991-electric-aircraft-model-in-simscape)
+
 These example models enable you to use simulation to evaluate electric 
 and hybrid electric aircraft architectures against design criteria such 
 as flight range and flight duration. The models are parameterized so that 
