@@ -1,6 +1,6 @@
 Electric Aircraft Component Sizing
 Connection to Spreadsheet Link
-Copyright 2017-2020 The MathWorks, Inc.
+Copyright 2017-2021 The MathWorks, Inc.
 
 The contents of this directory enable you to run parameter sweeps
 on the two electric aircraft VTOL models from within Excel.  You can

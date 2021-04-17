@@ -1,7 +1,7 @@
 % Code to sweep payload mass for electric aircraft examples
 % and plot comparison of the results.
 %
-% Copyright 2017-2020 The MathWorks, Inc.
+% Copyright 2017-2021 The MathWorks, Inc.
 
 modelname = 'ssc_aircraft_elec';
 ssc_aircraft_sweep_payload

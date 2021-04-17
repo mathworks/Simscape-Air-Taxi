@@ -1,7 +1,7 @@
 % Code to sweep payload mass and battery for electric aircraft examples
 % and plot results.
 %
-% Copyright 2017-2020 The MathWorks, Inc.
+% Copyright 2017-2021 The MathWorks, Inc.
 
 % Minimum range for aircraft for plot
 min_range = 160;  % km

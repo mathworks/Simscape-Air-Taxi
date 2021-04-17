@@ -1,6 +1,6 @@
 % Flight profiles for electric aircraft examples
 %
-% Copyright 2017-2020 The MathWorks, Inc.
+% Copyright 2017-2021 The MathWorks, Inc.
 
 %% Definition of Flight Profile 1
 FlightProfileStruct(1).description = 'Height-based flight profile at lower altitude.';
