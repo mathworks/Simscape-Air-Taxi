@@ -1,7 +1,7 @@
 % Code to set up figure windows so that when full parameterization is run,
 % they do not overlap the model.
 %
-% Copyright 2017-2021 The MathWorks, Inc.
+% Copyright 2017-2022 The MathWorks, Inc.
 
 %% Create and minimize figures
 warning('off','MATLAB:HandleGraphics:ObsoletedProperty:JavaFrame');

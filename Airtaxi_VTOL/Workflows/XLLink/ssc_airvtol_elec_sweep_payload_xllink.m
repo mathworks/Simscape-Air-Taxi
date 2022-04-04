@@ -1,7 +1,7 @@
 % Code to sweep payload mass for a single electric aircraft VTOL example and
 % plot results.
 %
-% Copyright 2017-2021 The MathWorks, Inc.
+% Copyright 2017-2022 The MathWorks, Inc.
 
 if (~exist('modelname','var'))
     modelname = 'ssc_airvtol_elec';

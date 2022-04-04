@@ -1,4 +1,4 @@
-% Copyright 2011-2021 The MathWorks, Inc.
+% Copyright 2011-2022 The MathWorks, Inc.
 
 Elec_Aircraft_Model_VTOL_HomeDir = [pwd filesep '..'];
 addpath(Elec_Aircraft_Model_VTOL_HomeDir);

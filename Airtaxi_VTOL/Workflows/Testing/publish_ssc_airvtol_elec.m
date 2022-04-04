@@ -1,6 +1,6 @@
 % Script for testing ssc_airvtol_elec and ssc_airvtol_elec_hybrid
 % and publishing results
-% Copyright 2012-2021 The MathWorks, Inc.
+% Copyright 2012-2022 The MathWorks, Inc.
 
 % List of test models 
 % Note that publish scripts do not match model names

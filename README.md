@@ -1,5 +1,5 @@
 # **Electric Aircraft Model in Simscape**
-Copyright 2017-2020 The MathWorks, Inc.
+Copyright 2017-2022 The MathWorks, Inc.
 
 [![View Electric Aircraft Model in Simscape on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/64991-electric-aircraft-model-in-simscape)
 

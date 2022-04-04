@@ -1,7 +1,7 @@
 % Code to sweep battery capacity for electric aircraft examples
 % and plot comparison of the results.
 %
-% Copyright 2017-2021 The MathWorks, Inc.
+% Copyright 2017-2022 The MathWorks, Inc.
 
 modelname = 'ssc_airvtol_elec';
 ssc_airvtol_sweep_battery
