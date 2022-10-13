@@ -29,7 +29,7 @@
 
 open_system('ssc_airvtol_elec')
 
-set_param(find_system('ssc_airvtol_elec','FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
+set_param(find_system('ssc_airvtol_elec','MatchFilter',@Simulink.match.allVariants,'FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
 
 %% Aircraft Subsystem
 %
