@@ -1,0 +1,269 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Hybrid Electric Aircraft Component Sizing</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-03-17"><meta name="DC.source" content="ssc_aircraft_elec_hybrid.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Hybrid Electric Aircraft Component Sizing</h1><!--introduction--><p>This example models a hybrid electric aircraft power network.  It can be used to evaluate component sizes with respect to design requirements.</p><p>Electric aircraft is an active area of development in the aerospace industry. Simulation can accelerate the process of selecting power network architectures and sizing components.  This simulation model enables rapid exploration of the design space and comparison to design criteria, which reduces the number of design iterations and ensures the final design meets system-level requirements.</p><p>In this example, aircraft configurations, power networks, and component sizes are all parameterized using MATLAB. You can test a single-seat light aircraft (such as Airbus E-Fan), double-seat light aircraft (such as Pipistrel Alpha Electro), or a custom design. Design parameters, such as battery capacity and payload mass, can be swept over a set of values to determine which combinations will meet flight range requirements.  A separate model enables a comparison with a pure electric architecture.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Model</a></li><li><a href="#2">Aircraft Subsystem</a></li><li><a href="#3">Load Torque Subsystem</a></li><li><a href="#4">Motor Subsystem</a></li><li><a href="#5">DC Power Distribution Subsystem</a></li><li><a href="#6">Fuel Pump Subsystem</a></li><li><a href="#7">Generator Subsystem</a></li><li><a href="#8">Simulation Results from Simscape Logging</a></li><li><a href="#10">Results from Parameter Sweep of Battery Capacities</a></li><li><a href="#11">Results from Parameter Sweep of Payload Mass</a></li><li><a href="#12">Results from Parameter Sweep of Battery Capacity and Payload Mass</a></li><li><a href="#13">Comparison with Electric Architecture</a></li></ul></div><h2 id="1">Model</h2><p>The electric aircraft model includes a battery, two DC networks, and a mechanical model of the aircraft which acts a load on the high voltage DC network.  A combustion engine drives a generator which supplements the power available from the battery and can be used to recharge the battery during flight. The mass of the fuel consumed by the engine is included in the simulation.  The low voltage DC network includes a set of loads that turn on and off during the flight cycle, including the fuel pump for the combustion engine.</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_01.png" alt=""> <h2 id="2">Aircraft Subsystem</h2><p>This subsystem models the aircraft as a load on the motor.  This abstract model assumes that the pilot takes the actions necessary to follow the desired flight cycle, set by alpha (angle of attack) and gamma (flight path angle with respect to the earth reference frame).  It calculates the required thrust to maintain the lift to follow the flight cycle.  The mechanical power required to deliver this thrust is calculated and converted to the load torque on the motor shaft.</p><p><a href="matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Aircraft','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_02.png" alt=""> <h2 id="3">Load Torque Subsystem</h2><p>This subsystem converts the required mechancial power into the load torque on the motor shaft.  This abstract model assumes that a specified amount of the motor's mechanical power is converted into thrust. Dividing the required power to maintain thrust by the motor speed results in the load torque on the motor shaft.  The motors control system adjusts to maintain the required shaft speed under the varying load.</p><p><a href="matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Aircraft/Load%Torque','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_03.png" alt=""> <h2 id="4">Motor Subsystem</h2><p>This subsystem represents an electric motor and drive electronics operating in torque-control mode, or equivalently current-control mode. The motor's permissible range of torques and speeds is defined by a torque-speed envelope.</p><p><a href="matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Motor','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_04.png" alt=""> <h2 id="5">DC Power Distribution Subsystem</h2><p>This subsytem models the breakers that open and close to connect and disconnect loads from the low voltage DC network.  The varying conditions affect the power drawn from the network, the range of the aircraft, and the power requirements for the power lines in the aircraft</p><p><a href="matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/DC%20Power%20Distribution','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_05.png" alt=""> <h2 id="6">Fuel Pump Subsystem</h2><p>This subsystem models the fuel pump.  An electric motor drives a pump that pushes fuel through a valve.  The opening of the valve varies during the flight cycle, which changes the current that the motor draws from the DC network.</p><p><a href="matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Fuel%20Pump','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_06.png" alt=""> <h2 id="7">Generator Subsystem</h2><p>This subsystem represents the generator and drive electronics operating in torque-control mode, or equivalently current-control mode. It is driven by the combustion engine to supply additional electrical power to the aircraft network.</p><p><a href="matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Generator','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_07.png" alt=""> <h2 id="8">Simulation Results from Simscape Logging</h2><p>The plots below show the results of a single simulation.  The aircraft starts from a low altitude, climbs to a higher altitude and keeps level flight. The first plot shows the battery states of a pure electrical aircraft during a flight cycle. The second plot shows the current and power levels during simulation.</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_08.png" alt=""> <img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_09.png" alt=""> <h2 id="10">Results from Parameter Sweep of Battery Capacities</h2><p>The plots below show the effect of battery capacity on the flight range and maximum flight time of the aircraft. The relationship between the battery size and the range is not linear because increasing battery capacity also increases the overall weight of the aircraft.</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_10.png" alt=""> <img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_11.png" alt=""> <h2 id="11">Results from Parameter Sweep of Payload Mass</h2><p>The plots below show the effect of payload mass on flight range and maximum flight time of the aircraft. Varying the payload mass represents adding additional luggage or an additional passenger to the aircraft</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_12.png" alt=""> <h2 id="12">Results from Parameter Sweep of Battery Capacity and Payload Mass</h2><p>The plots below show the effect of varying both the payload mass and battery capacity on flight range. A significant percentage of the design space examined will permit flights of over 160 km (100 miles).</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_13.png" alt=""> <h2 id="13">Comparison with Electric Architecture</h2><p>A separate model includes a electric-only architecture.  Testing both of these models enables a comparison of the architectures against design requirements.</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_14.png" alt=""> <p>The plots below show that for a given payload or battery capacity, the hybrid electric aircraft will permit a longer flight.</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_15.png" alt=""> <img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_16.png" alt=""> <p>The plots below show that the hybrid electric aircraft will achieve flights of over 160 km (100 miles) in a larger percentage of the design space.</p><img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_17.png" alt=""> <img vspace="5" hspace="5" src="ssc_aircraft_elec_hybrid_18.png" alt=""> <p class="footer">Copyright 2017-2023 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Hybrid Electric Aircraft Component Sizing
+%
+% This example models a hybrid electric aircraft power network.  It can be
+% used to evaluate component sizes with respect to design requirements.
+%
+% Electric aircraft is an active area of development in the aerospace
+% industry. Simulation can accelerate the process of selecting power
+% network architectures and sizing components.  This simulation model
+% enables rapid exploration of the design space and comparison to design
+% criteria, which reduces the number of design iterations and ensures the
+% final design meets system-level requirements.
+%
+% In this example, aircraft configurations, power networks, and component
+% sizes are all parameterized using MATLAB. You can test a single-seat
+% light aircraft (such as Airbus E-Fan), double-seat light aircraft (such
+% as Pipistrel Alpha Electro), or a custom design. Design parameters, such
+% as battery capacity and payload mass, can be swept over a set of values
+% to determine which combinations will meet flight range requirements.  A
+% separate model enables a comparison with a pure electric architecture.
+% 
+% Copyright 2017-2023 The MathWorks, Inc.
+
+%% Model
+%
+% The electric aircraft model includes a battery, two DC networks, and a
+% mechanical model of the aircraft which acts a load on the high voltage DC
+% network.  A combustion engine drives a generator which supplements the
+% power available from the battery and can be used to recharge the battery
+% during flight. The mass of the fuel consumed by the engine is included in
+% the simulation.  The low voltage DC network includes a set of loads that
+% turn on and off during the flight cycle, including the fuel pump for the
+% combustion engine.
+
+open_system('ssc_aircraft_elec_hybrid')
+
+set_param(find_system('ssc_aircraft_elec_hybrid','MatchFilter',@Simulink.match.allVariants,'FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
+
+%% Aircraft Subsystem
+%
+% This subsystem models the aircraft as a load on the motor.  This abstract
+% model assumes that the pilot takes the actions necessary to follow the
+% desired flight cycle, set by alpha (angle of attack) and gamma (flight
+% path angle with respect to the earth reference frame).  It calculates the
+% required thrust to maintain the lift to follow the flight cycle.  The
+% mechanical power required to deliver this thrust is calculated and
+% converted to the load torque on the motor shaft.
+%
+% <matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Aircraft','force'); Open Subsystem>
+
+set_param('ssc_aircraft_elec_hybrid/Aircraft','LinkStatus','none')
+open_system('ssc_aircraft_elec_hybrid/Aircraft','force')
+
+%% Load Torque Subsystem
+%
+% This subsystem converts the required mechancial power into the load
+% torque on the motor shaft.  This abstract model assumes that a specified
+% amount of the motor's mechanical power is converted into thrust. Dividing
+% the required power to maintain thrust by the motor speed results in the
+% load torque on the motor shaft.  The motors control system adjusts to
+% maintain the required shaft speed under the varying load.
+%
+% <matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Aircraft/Load%Torque','force'); Open Subsystem>
+
+open_system('ssc_aircraft_elec_hybrid/Aircraft/Load Torque','force')
+
+%% Motor Subsystem
+%
+% This subsystem represents an electric motor and drive electronics
+% operating in torque-control mode, or equivalently current-control mode.
+% The motor's permissible range of torques and speeds is defined by a
+% torque-speed envelope.
+%
+% <matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Motor','force'); Open Subsystem>
+
+set_param('ssc_aircraft_elec_hybrid/Motor','LinkStatus','none')
+open_system('ssc_aircraft_elec_hybrid/Motor','force')
+
+%% DC Power Distribution Subsystem
+%
+% This subsytem models the breakers that open and close to connect and
+% disconnect loads from the low voltage DC network.  The varying conditions
+% affect the power drawn from the network, the range of the aircraft, and
+% the power requirements for the power lines in the aircraft
+%
+% <matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/DC%20Power%20Distribution','force'); Open Subsystem>
+
+set_param('ssc_aircraft_elec_hybrid/DC Power Distribution','LinkStatus','none')
+open_system('ssc_aircraft_elec_hybrid/DC Power Distribution','force')
+
+%% Fuel Pump Subsystem
+%
+% This subsystem models the fuel pump.  An electric motor drives a pump
+% that pushes fuel through a valve.  The opening of the valve varies during
+% the flight cycle, which changes the current that the motor draws from the
+% DC network.
+%
+% <matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Fuel%20Pump','force'); Open Subsystem>
+
+set_param('ssc_aircraft_elec_hybrid/Fuel Pump','LinkStatus','none')
+open_system('ssc_aircraft_elec_hybrid/Fuel Pump','force')
+
+%% Generator Subsystem
+%
+% This subsystem represents the generator and drive electronics operating in
+% torque-control mode, or equivalently current-control mode. It is driven
+% by the combustion engine to supply additional electrical power to the
+% aircraft network.
+%
+% <matlab:open_system('ssc_aircraft_elec_hybrid');open_system('ssc_aircraft_elec_hybrid/Generator','force'); Open Subsystem>
+
+set_param('ssc_aircraft_elec_hybrid/Generator','LinkStatus','none')
+open_system('ssc_aircraft_elec_hybrid/Generator','force')
+
+%% Simulation Results from Simscape Logging
+%%
+%
+% The plots below show the results of a single simulation.  The aircraft
+% starts from a low altitude, climbs to a higher altitude and keeps level
+% flight. The first plot shows the battery states of a pure electrical
+% aircraft during a flight cycle. The second plot shows the current and
+% power levels during simulation.
+%
+
+ssc_aircraft_elec_hybrid_plot1time
+
+%% Results from Parameter Sweep of Battery Capacities
+%
+% The plots below show the effect of battery capacity on the flight range
+% and maximum flight time of the aircraft. The relationship between the
+% battery size and the range is not linear because increasing battery
+% capacity also increases the overall weight of the aircraft.
+%
+
+payload_mass = 0;
+modelname = bdroot;
+ssc_aircraft_sweep_battery;
+
+%% Results from Parameter Sweep of Payload Mass
+%
+% The plots below show the effect of payload mass on flight range and
+% maximum flight time of the aircraft. Varying the payload mass represents
+% adding additional luggage or an additional passenger to the aircraft
+%
+
+battery_capacity = 200;
+modelname = bdroot;
+ssc_aircraft_sweep_payload;
+
+%% Results from Parameter Sweep of Battery Capacity and Payload Mass
+%
+% The plots below show the effect of varying both the payload mass and
+% battery capacity on flight range. A significant percentage of the
+% design space examined will permit flights of over 160 km (100 miles).
+%
+
+modelname = bdroot;
+ssc_aircraft_sweep_payloadbattery;
+close(h4_ssc_aircraft_elec_hybrid)
+
+%% Comparison with Electric Architecture
+%
+% A separate model includes a electric-only architecture.  Testing both
+% of these models enables a comparison of the architectures against design
+% requirements.
+%
+%
+
+open_system('ssc_aircraft_elec')
+set_param(find_system('ssc_aircraft_elec','FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
+
+%% 
+% The plots below show that for a given payload or battery capacity, the
+% hybrid electric aircraft will permit a longer flight.
+
+payload_mass = 0;
+ssc_aircraft_sweep_battery_compare
+close(h3_ssc_aircraft_elec)
+close(h3_ssc_aircraft_elec_hybrid)
+
+battery_capacity = 200;
+ssc_aircraft_sweep_payload_compare
+close(h4_ssc_aircraft_elec)
+close(h4_ssc_aircraft_elec_hybrid)
+
+%%
+% The plots below show that the hybrid electric aircraft will achieve
+% flights of over 160 km (100 miles) in a larger percentage of the design
+% space.
+
+ssc_aircraft_sweep_payloadbattery_compare
+close(h8_ssc_aircraft_elec)
+close(h8_ssc_aircraft_elec_hybrid)
+
+%%
+close all
+bdclose all
+##### SOURCE END #####
+--></body></html>
