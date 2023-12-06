@@ -16,4 +16,4 @@ addpath([pwd filesep 'html' filesep 'html']);
 ssc_aircraft_elec_configs
 ssc_aircraft_elec_default_params
 
-open('Elec_Aircraft_Demo_Script.html')
+web('Elec_Aircraft_Demo_Script.html')
