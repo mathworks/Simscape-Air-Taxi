@@ -1,4 +1,4 @@
-% Copyright 2017-2023 The MathWorks, Inc.
+% Copyright 2017-2024 The MathWorks, Inc.
 
 Elec_Aircraft_Model_HomeDir = pwd;
 %{

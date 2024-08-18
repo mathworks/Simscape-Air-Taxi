@@ -23,4 +23,4 @@ for i=1:length(filenames_m)
     end
 end
 
-% Copyright 2017-2023 The MathWorks, Inc.
+% Copyright 2017-2024 The MathWorks, Inc.

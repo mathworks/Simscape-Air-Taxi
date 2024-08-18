@@ -1,7 +1,7 @@
 % Code to sweep battery capacity for a single electric aircraft example and
 % plot results.
 %
-% Copyright 2017-2023 The MathWorks, Inc.
+% Copyright 2017-2024 The MathWorks, Inc.
 
 battery_capacity_set = [100:20:200];
 
