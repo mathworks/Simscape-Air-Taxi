@@ -1,4 +1,4 @@
-% Copyright 2011-2024 The MathWorks, Inc.
+% Copyright 2011-2025 The MathWorks, Inc.
 
 Elec_Aircraft_Model_HomeDir = [pwd filesep '..' filesep '..'];
 addpath(Elec_Aircraft_Model_HomeDir);

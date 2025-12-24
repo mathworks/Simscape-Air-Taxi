@@ -17,4 +17,4 @@ ssc_aircraft_sweep_payloadbattery_xllink
 
 temp_dist_payl_ele_xllink = flipud(temp_dist_payl_ele);
 
-% Copyright 2017-2024 The MathWorks, Inc.
+% Copyright 2017-2025 The MathWorks, Inc.

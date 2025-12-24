@@ -18,7 +18,7 @@
 % to determine which combinations will meet flight range requirements.  A
 % separate model enables a comparison with a pure electric architecture.
 % 
-% Copyright 2017-2024 The MathWorks, Inc.
+% Copyright 2017-2025 The MathWorks, Inc.
 
 %% Model
 %
@@ -134,6 +134,8 @@ ssc_aircraft_elec_hybrid_plot1time
 payload_mass = 0;
 modelname = bdroot;
 ssc_aircraft_sweep_battery;
+close(h1_ssc_aircraft_elec_hybrid)
+close(h2_ssc_aircraft_elec_hybrid)
 
 %% Results from Parameter Sweep of Payload Mass
 %
@@ -190,6 +192,8 @@ close(h4_ssc_aircraft_elec_hybrid)
 ssc_aircraft_sweep_payloadbattery_compare
 close(h8_ssc_aircraft_elec)
 close(h8_ssc_aircraft_elec_hybrid)
+close(h5_ssc_aircraft)
+close(h7_ssc_aircraft)
 
 %%
 close all

@@ -1,7 +1,7 @@
 % Code to plot results of parameter sweep for battery capacity and payload
 % for electric aircraft examples
 %
-% Copyright 2017-2024 The MathWorks, Inc.
+% Copyright 2017-2025 The MathWorks, Inc.
 
 % Load default data if necessary
 if (~exist('temp_dist_payl_ele_hybr','var'))
